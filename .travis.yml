@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk11
+jobs:
+  include:
+#    - stage: unit tests
+#      script: "Running unit tests (1)"
+    - stage: deploy to heroku
+      script: skip
+      deploy: &heroku
+        provider: heroku
+        app: yieldme-back
+        api_key:
+          secure: $HEROKU_API_KEY
+    - stage: test production deploy
+      script: 'curl https://spring-cron-predict.herokuapp.com'
