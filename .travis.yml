@@ -13,4 +13,4 @@ jobs:
         api_key:
           secure: $HEROKU_API_KEY
     - stage: test production deploy
-      script: 'curl https://spring-cron-predict.herokuapp.com'
+      script: 'curl https://yieldme-back.herokuapp.com'
