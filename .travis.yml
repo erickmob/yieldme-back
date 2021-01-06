@@ -5,13 +5,10 @@ jobs:
   include:
   - stage: deploy to heroku
     script: skip
-    deploy:
-      provider: heroku
-      app: yieldme-back
-      api_key:
-        secure: "$HEROKU_API_KEY"
   - stage: test production deploy
     script: curl https://yieldme-back.herokuapp.com
 deploy:
+  provider: heroku
   api_key:
-    secure: cGmtYmdCeMRIj9lhvQ9TWrm77v/QWGg3wXLUeQC/xWCD99sVYEW//TQm80EOh+dFJBOVD3WBb2zPU2n7G7Svy1HxDkRS1gk7X1Rjtt1GIDO2pXz1vOslONbKEw6K1yhj+gmCd33NGlFA7Gev2QDpsc8IiXVz9sPjIw9heWxPChc2GHct0/tCuq+XQPsgvcBhT0rsX0q0dVYdBK5Pqh/ChEf9ChfVLMeRifgRuJA2pz5qR0C6oVYjSYAFPjOZxSxiw3DLVxpSZ3wr1D3lITV9/h93K72NeDOpU4CXO4MQTVnYK0Emhd+AmiOkahvwgCCwOyEVer4CTh/vckMJftXAX0wtCP8KIDA2djSgThM4eChYQE++Oyxtmo28oioyxVjt+r8/Q3qVSbWBcvCAFMv+h2d1PAiASorZawKqdMT4w0FNgD5mrwBDKPmBlxf8ZEt+0lrZQlf0U06cLJaT+7M7BgQCiAhsZtw7nu6mp5zt3Gt/SpB4SmzDOefpH8lRI4pMb3Nt5hrtrMq3cUhHGe9WM7pCDfxiqgGfGa6EfiVPxN6UUrYqBUSluwJ2KdM6EO71p1oVT49BXkFB6eZzRUctebaZ2XCgvhVjKuZSbHJTC9PgGkP5/kbdpfn1ors6K9GwMHvD+8H2KiFwW7cVqqEpOCnVOcj6BFN5S4IGkblcNU8=
+    secure: $SECURE_KEY
+  app: $APP
