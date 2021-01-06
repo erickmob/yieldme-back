@@ -11,6 +11,6 @@ jobs:
         provider: heroku
         app: yieldme-back
         api_key:
-          secure: $HEROKU_API_KEY
+          secure: nSV+UCRjbqj3XVaun3p3BRJ0QyIsIoL5vWl+dREA70haj1uP2QHdm0GpO1QMP4fLp1A8oZneyX8AI1dplzlljviY/qMEJZE05BFJ/ogDywC0EEOTMFkgrPhGcUKyxm5E+HL+oNNTIjI1uPv8tE2IfceWZtLf5JuMpS7OD6cxALugYidKhv7EDbNmdzA/VTAUzC9tb6v1SrtYEVEIanUtdPCFcv5vLHrOmv0RHzC286uqCnQIeb4edSB7XhwyOB9MlSj64jDoo70gJVyBDk+xiC9lYTihwTLLHKgRRjJzP3gk8M2bF4eqHByWV7En2bkjiNjdSxrAHRnRHas2LlBvOcv9mYHMbYpYQSC6kaa1BV+X6x77G+u9Ib9BC/YZIan2m3L4ZXRaXGLDV8w2Vjq4dFMLiJZl9JW6XCOPVXX/Fambs9doNqnulJYNp5LPPL1UWqhuOc12WeDzuNTe0Dl+30ZFVsi+ltCS69hSqHFEe7B6yjsWOXNgTDvL8NdKXkV0LYxr4SM+pJqyWiUCp1qOoRHKdy971RwVpnfYNrquAnDFZ7mda52GnyUVarQLddA0FiI2btLce99xoYJFXZsuIjNYO8Lkw3Um5bRp2Pg3xwIDzwmugI2poGipC2tXcNCFYuLTEhUo79JNz05AGK22BaBRbKiRyaf0ecFNEDVskHg=
     - stage: test production deploy
       script: 'curl https://spring-cron-predict.herokuapp.com'
