@@ -70,4 +70,10 @@ public class UserService {
         return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
     }
 
+    public String changePassword(String password, HttpServletRequest req) {
+        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+    }
 }

@@ -44,5 +44,6 @@ public class YieldMeApplication implements CommandLineRunner {
 //		client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
 //
 //		userService.signup(client);
+
 	}
 }

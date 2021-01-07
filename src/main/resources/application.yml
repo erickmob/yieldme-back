@@ -1,5 +1,5 @@
 spring:
   profiles:
-    active: heroku
+    active: local
   application:
     name: yield-me
