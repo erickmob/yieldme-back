@@ -1,18 +1,15 @@
 package com.erickmob.yieldme.model;
 
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -72,4 +69,14 @@ public class User {
         this.roles = roles;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + null +
+                '}';
+    }
 }

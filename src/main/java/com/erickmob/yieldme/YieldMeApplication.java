@@ -1,10 +1,18 @@
 package com.erickmob.yieldme;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.erickmob.yieldme.model.Role;
-import com.erickmob.yieldme.model.User;
+
+import com.erickmob.yieldme.model.*;
+import com.erickmob.yieldme.repository.AssetRepository;
+import com.erickmob.yieldme.repository.ContributionRepository;
+import com.erickmob.yieldme.repository.WalletRepository;
+import com.erickmob.yieldme.service.AssetService;
+import com.erickmob.yieldme.service.ContributionService;
 import com.erickmob.yieldme.service.UserService;
+import com.erickmob.yieldme.service.WalletService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +26,16 @@ public class YieldMeApplication implements CommandLineRunner {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	WalletService walletService;
+
+	@Autowired
+	ContributionService contributionService;
+
+	@Autowired
+	AssetService assetService;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(YieldMeApplication.class, args);
 	}
@@ -29,21 +47,22 @@ public class YieldMeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... params) throws Exception {
-//		User admin = new User();
-//		admin.setUsername("admin");
-//		admin.setPassword("admin");
-//		admin.setEmail("admin@yieldme.com");
-//		admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
-//
-//		userService.signup(admin);
-//
-//		User client = new User();
-//		client.setUsername("client");
-//		client.setPassword("client");
-//		client.setEmail("client@yieldme.com");
-//		client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
-//
-//		userService.signup(client);
+		User admin = null;
+		try {
+			admin = userService.search("admin");
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		if (admin == null) {
+			admin = new User();
+			admin.setUsername("admin");
+			admin.setPassword("asd123");
+			admin.setEmail("admin@yieldme.com");
+			admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+
+			userService.signup(admin);
+
+		}
 
 	}
 }

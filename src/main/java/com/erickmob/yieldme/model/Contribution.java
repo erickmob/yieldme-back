@@ -1,0 +1,77 @@
+package com.erickmob.yieldme.model;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+
+@Entity
+@Data
+@ToString
+@NoArgsConstructor
+public class Contribution {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Exchange may not be null")
+    private Exchanges exchange;
+
+    @NotNull(message = "Exchange may not be null")
+    private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name="asset_id", nullable=false)
+    @NotNull(message = "Asset may not be null")
+    private Asset asset;
+
+    @NotNull(message = "Amount may not be null")
+    private BigDecimal amount;
+
+    @NotNull(message = "Unit Price may not be null")
+    private BigDecimal unitPrice;
+
+    @NotNull(message = "Total Price may not be null")
+    private BigDecimal totalPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="wallet_id", nullable=false)
+    private Wallet wallet;
+
+    public Contribution(@NotNull(message = "Exchange may not be null") Exchanges exchange,
+                        @NotNull(message = "Exchange may not be null") LocalDate date,
+                        @NotNull(message = "Asset may not be null") Asset asset,
+                        @NotNull(message = "Amount may not be null") BigDecimal amount,
+                        @NotNull(message = "Unit Price may not be null") BigDecimal unitPrice,
+                        @NotNull(message = "Total Price may not be null") BigDecimal totalPrice
+                      ,  Wallet wallet
+    ) {
+        this.exchange = exchange;
+        this.date = date;
+        this.asset = asset;
+        this.amount = amount;
+        this.unitPrice = unitPrice;
+        this.totalPrice = totalPrice;
+        this.wallet = wallet;
+    }
+
+    @Override
+    public String toString() {
+        return "Contribution{" +
+                "id=" + id +
+                ", exchange=" + exchange +
+                ", date=" + date +
+                ", asset=" + asset +
+                ", amount=" + amount +
+                ", unitPrice=" + unitPrice +
+                ", totalPrice=" + totalPrice +
+                ", walletID=" + null +
+                '}';
+    }
+}
