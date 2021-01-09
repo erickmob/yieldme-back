@@ -3,3 +3,25 @@ spring:
     active: local
   application:
     name: yield-me
+
+security:
+  jwt:
+    token:
+      secret-key: secret-key
+      expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
+
+UserController:
+  signin: Authenticates user and returns its JWT token.
+  signup: Creates user and returns its JWT token
+  delete: Deletes specific user by username
+  search: Returns specific user by username
+  newPassword: Changes user's password
+  me: Returns current user's data
+
+ContributionsController:
+  findAll: FindAll Contributions by user
+  create: Creates contribution
+  findOne: Find one specific contribution
+  saveOrUpdate: Save or Update specific user by username
+  patch: Patch specific contribution
+  delete: Deletes specific contribution

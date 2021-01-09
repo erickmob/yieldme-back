@@ -6,6 +6,8 @@ import com.erickmob.yieldme.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class WalletService {
 

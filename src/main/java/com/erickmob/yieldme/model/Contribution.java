@@ -1,5 +1,6 @@
 package com.erickmob.yieldme.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,7 +18,7 @@ import java.util.Date;
 public class Contribution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Exchange may not be null")
@@ -40,6 +41,7 @@ public class Contribution {
     @NotNull(message = "Total Price may not be null")
     private BigDecimal totalPrice;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="wallet_id", nullable=false)
     private Wallet wallet;

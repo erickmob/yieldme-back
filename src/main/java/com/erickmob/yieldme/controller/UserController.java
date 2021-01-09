@@ -90,7 +90,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public UserResponseDTO whoAmI(HttpServletRequest req) {
-        return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
+        return modelMapper.map(userService.getUserFromReq(req), UserResponseDTO.class);
     }
 
     @GetMapping("/refresh")

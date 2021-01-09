@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Asset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(unique=true)
     @NotBlank(message = "Ticker may not be blank")
