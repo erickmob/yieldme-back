@@ -1,8 +1,6 @@
 package com.erickmob.yieldme.dto;
 
-import com.erickmob.yieldme.model.Asset;
 import com.erickmob.yieldme.model.Exchanges;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -15,7 +13,7 @@ public class ContributionDataDTO {
 
     @Enumerated(EnumType.STRING)
     private Exchanges exchange;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDate date;
     private Long assetId;
     private BigDecimal amount;

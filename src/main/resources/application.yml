@@ -22,6 +22,6 @@ ContributionsController:
   findAll: FindAll Contributions by user
   create: Creates contribution
   findOne: Find one specific contribution
-  saveOrUpdate: Save or Update specific user by username
+  update: Update specific contribution
   patch: Patch specific contribution
   delete: Deletes specific contribution

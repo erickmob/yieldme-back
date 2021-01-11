@@ -46,6 +46,12 @@ public class Contribution {
     @JoinColumn(name="wallet_id", nullable=false)
     private Wallet wallet;
 
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @NotNull(message = "User may not be null")
+    private User user;
+
     public Contribution(@NotNull(message = "Exchange may not be null") Exchanges exchange,
                         @NotNull(message = "Exchange may not be null") LocalDate date,
                         @NotNull(message = "Asset may not be null") Asset asset,

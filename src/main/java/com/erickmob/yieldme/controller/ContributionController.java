@@ -24,6 +24,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
@@ -46,9 +47,6 @@ public class ContributionController {
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private AssetService assetService;
 
 
@@ -63,6 +61,16 @@ public class ContributionController {
         return contributionService.findAll(wallet);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    @ApiOperation(value = "${ContributionsController.findOne}",
+            response = ContributionDataDTO.class,
+            authorizations = { @Authorization(value="apiKey") }
+    )
+    Contribution findOne(Principal principal, @PathVariable Long id) {
+        return contributionService.findById(id);
+    }
+
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
@@ -75,67 +83,36 @@ public class ContributionController {
 
         Wallet wallet = getWalletFromRequest(req);
         Optional<Asset> asset = assetService.findById(contributionDataDTO.getAssetId());
-        Contribution contribution = modelMapper.map(contributionDataDTO, Contribution.class);
-        if(!asset.isPresent()){
-            throw new CustomException("Asset not found", HttpStatus.NOT_FOUND);
-        }
-        contribution.setAsset(asset.get());
+        Contribution contribution = contributionService.contributionWithAssetFromDTO(contributionDataDTO, asset);
+
         return contributionService.save(wallet, contribution);
     }
 
-    // Find
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    @ApiOperation(value = "${ContributionsController.findOne}",
-            response = ContributionDataDTO.class,
+    @ApiOperation(value = "${ContributionsController.update}",
+            response = Contribution.class,
             authorizations = { @Authorization(value="apiKey") }
     )
-    Contribution findOne(@PathVariable Long id) {
-        return contributionService.findById(id);
+    Contribution update(HttpServletRequest req,
+                        @RequestBody ContributionDataDTO contributionDataDTO,
+                        @PathVariable Long id) {
+        //TODO: testar:
+        // - user not found
+        // - contribution not found by id and user
+        // - asset not found
+        // - contributionFromDTO
+        // - update
+        User user = userService.getUserFromReq(req);
+        Contribution contribution = contributionService.findByIdAndUser(id, user);
+        Optional<Asset> asset = assetService.findById(contributionDataDTO.getAssetId());
+        Contribution contributionFromDTO = contributionService.contributionWithAssetFromDTO(contributionDataDTO, asset);
+
+        return contributionService.update(contributionFromDTO, contribution);
+
     }
 
-    // Save or update
-//    @PutMapping("/books/{id}")
-//    Book saveOrUpdate(@RequestBody Book newBook, @PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .map(x -> {
-//                    x.setName(newBook.getName());
-//                    x.setAuthor(newBook.getAuthor());
-//                    x.setPrice(newBook.getPrice());
-//                    return repository.save(x);
-//                })
-//                .orElseGet(() -> {
-//                    newBook.setId(id);
-//                    return repository.save(newBook);
-//                });
-//    }
-
-    // update author only
-//    @PatchMapping("/books/{id}")
-//    Book patch(@RequestBody Map<String, String> update, @PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .map(x -> {
-//
-//                    String author = update.get("author");
-//                    if (!StringUtils.isEmpty(author)) {
-//                        x.setAuthor(author);
-//
-//                        // better create a custom method to update a value = :newValue where id = :id
-//                        return repository.save(x);
-//                    } else {
-//                        throw new BookUnSupportedFieldPatchException(update.keySet());
-//                    }
-//
-//                })
-//                .orElseGet(() -> {
-//                    throw new BookNotFoundException(id);
-//                });
-//
-//    }
-//
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${ContributionsController.delete}",
             authorizations = { @Authorization(value="apiKey") }
     )

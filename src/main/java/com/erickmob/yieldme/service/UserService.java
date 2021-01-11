@@ -89,4 +89,5 @@ public class UserService {
         userRepository.save(user);
         return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
     }
+
 }
