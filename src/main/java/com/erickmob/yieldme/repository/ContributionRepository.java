@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface ContributionRepository extends JpaRepository<Contribution, Long> {
 
     List<Contribution> findAllByWallet(Wallet wallet);
-
+    List<Contribution> findAllByUser(User user);
     Optional<Contribution> findByIdAndUser(Long id, User user);
 }

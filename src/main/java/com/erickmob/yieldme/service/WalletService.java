@@ -4,6 +4,7 @@ import com.erickmob.yieldme.model.User;
 import com.erickmob.yieldme.model.Wallet;
 import com.erickmob.yieldme.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,9 @@ public class WalletService {
         return walletRepository.save(wallet);
     }
 
-    public Wallet findByUser(User user){
-        return walletRepository.findByUser(user);
+    public Wallet findByUser(){
+        User loggedUser  =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return walletRepository.findByUser(loggedUser);
     }
 
     public Wallet save(Wallet wallet){
