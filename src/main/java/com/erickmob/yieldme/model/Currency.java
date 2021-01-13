@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Currency {
     DOLLAR("U$"),
-    REAIS("R$");
+    REAL("R$");
 
     private final String name;
 }

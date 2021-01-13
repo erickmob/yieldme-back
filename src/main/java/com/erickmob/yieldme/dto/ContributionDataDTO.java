@@ -1,5 +1,6 @@
 package com.erickmob.yieldme.dto;
 
+import com.erickmob.yieldme.model.Asset;
 import com.erickmob.yieldme.model.Exchanges;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class ContributionDataDTO {
     private Exchanges exchange;
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDate date;
-    private Long assetId;
+    private Asset asset;
     private BigDecimal amount;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;

@@ -10,12 +10,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"ticker", "assetCategory"})
+})
 public class Asset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
     @NotBlank(message = "Ticker may not be blank")
     private String ticker;
 
@@ -29,6 +31,12 @@ public class Asset {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Currency may not be null")
     private Currency currency;
+
+    private String tickerExchange;
+
+    private String category;
+
+    private String country;
 
     public Asset(@NotBlank(message = "Ticker may not be blank") String ticker,
                  @NotBlank(message = "Name may not be blank") String name,

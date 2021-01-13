@@ -100,6 +100,8 @@ public class UserController {
         return userService.refresh();
     }
 
+    //TODO:Alterar esse metodo para não receber
+    // a variavel na url
     @PostMapping("/newpassword")
     @ApiOperation(value = "${UserController.newPassword}")
     @ApiResponses(value = {

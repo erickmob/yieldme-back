@@ -58,13 +58,6 @@ public class YieldMeApplication implements CommandLineRunner {
 			log.info("User admin created.");
 		}
 
-		try {
-			Asset vt  = new Asset("VT", "VT", AssetCategory.ETF, Currency.DOLLAR);
-
-			assetService.save(vt);
-		} catch (Exception e) {
-//			e.printStackTrace();
-		}
 
 	}
 

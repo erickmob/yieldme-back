@@ -1,14 +1,11 @@
 package com.erickmob.yieldme.controller;
 
 import com.erickmob.yieldme.dto.ContributionDataDTO;
-import com.erickmob.yieldme.exception.CustomException;
-import com.erickmob.yieldme.jwt.JwtTokenProvider;
 import com.erickmob.yieldme.model.Asset;
 import com.erickmob.yieldme.model.Contribution;
 import com.erickmob.yieldme.model.Wallet;
 import com.erickmob.yieldme.service.AssetService;
 import com.erickmob.yieldme.service.ContributionService;
-import com.erickmob.yieldme.service.UserService;
 import com.erickmob.yieldme.service.WalletService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,12 +31,6 @@ public class ContributionController {
     private WalletService walletService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
     private AssetService assetService;
 
 
@@ -47,8 +38,8 @@ public class ContributionController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${ContributionsController.findAll}",
             response = ContributionDataDTO.class,
-            responseContainer="List",
-            authorizations = { @Authorization(value="apiKey") })
+            responseContainer = "List",
+            authorizations = {@Authorization(value = "apiKey")})
     List<Contribution> findAll() {
         return contributionService.findAllByUser();
     }
@@ -57,7 +48,7 @@ public class ContributionController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${ContributionsController.findOne}",
             response = ContributionDataDTO.class,
-            authorizations = { @Authorization(value="apiKey") }
+            authorizations = {@Authorization(value = "apiKey")}
     )
     Contribution findOne(@PathVariable Long id) {
 
@@ -69,12 +60,12 @@ public class ContributionController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${ContributionsController.create}",
             response = Contribution.class,
-            authorizations = { @Authorization(value="apiKey") }
+            authorizations = {@Authorization(value = "apiKey")}
     )
     Contribution save(@RequestBody ContributionDataDTO contributionDataDTO) {
 
         Wallet wallet = walletService.findByUser();
-        Optional<Asset> asset = assetService.findById(contributionDataDTO.getAssetId());
+        Optional<Asset> asset = assetService.findById(contributionDataDTO.getAsset().getId());
         Contribution contribution = contributionService.contributionWithAssetFromDTO(contributionDataDTO, asset);
 
         return contributionService.save(wallet, contribution);
@@ -84,7 +75,7 @@ public class ContributionController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${ContributionsController.update}",
             response = Contribution.class,
-            authorizations = { @Authorization(value="apiKey") }
+            authorizations = {@Authorization(value = "apiKey")}
     )
     Contribution update(HttpServletRequest req,
                         @RequestBody ContributionDataDTO contributionDataDTO,
@@ -96,7 +87,7 @@ public class ContributionController {
         // - contributionFromDTO
         // - update
         Contribution contribution = contributionService.findByIdAndUser(id);
-        Optional<Asset> asset = assetService.findById(contributionDataDTO.getAssetId());
+        Optional<Asset> asset = assetService.findById(contributionDataDTO.getAsset().getId());
         Contribution contributionFromDTO = contributionService.contributionWithAssetFromDTO(contributionDataDTO, asset);
         return contributionService.update(contributionFromDTO, contribution);
 
@@ -104,7 +95,7 @@ public class ContributionController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${ContributionsController.delete}",
-            authorizations = { @Authorization(value="apiKey") }
+            authorizations = {@Authorization(value = "apiKey")}
     )
     @DeleteMapping("/{id}")
     void deleteBook(@PathVariable Long id) {
