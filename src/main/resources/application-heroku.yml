@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_954070ce9baddba?reconnect=true
-    username: b075bb15cc03cf
-    password: d2016445
+    url: jdbc:mysql://jflojmlcb147lpy2:zkgnsaxnpcc66ujt@lfmerukkeiac5y5w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/fghukk0gesv5mwqd
+    username: jflojmlcb147lpy2
+    password: zkgnsaxnpcc66ujt
   tomcat:
     max-wait: 20000
     max-active: 50
