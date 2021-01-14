@@ -46,19 +46,6 @@ public class YieldMeApplication implements CommandLineRunner {
 	@Override
 	public void run(String... params) throws Exception {
 
-		User user;
-		try {
-			user = userRepository.findByUsername("admin2").orElseThrow(() -> new UsernameNotFoundException("Username: admin  not found"));
-		} catch (UsernameNotFoundException e) {
-			log.info(e.getLocalizedMessage());
-			log.info("Creating user ".concat("admin"));
-			user = new User("admin2", "admin@gmail.com", true, "admin2",
-					this.passwordEncoder.encode("asd123"),  Arrays.asList( "ROLE_USER", "ROLE_ADMIN"));
-			userRepository.save(user);
-			log.info("User admin created.");
-		}
-
-
 	}
 
 	@Bean

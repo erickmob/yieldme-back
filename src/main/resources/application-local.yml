@@ -10,13 +10,15 @@ spring:
     min-idle: 15
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
         id:
           new_generator_mappings: false
+  flyway:
+    enabled: true
 
 server:
   port: 8080 # This is the default port anyway, but you can change it here
